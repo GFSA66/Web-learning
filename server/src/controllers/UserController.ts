@@ -56,6 +56,9 @@ class UserController {
       const user = await User.findOne({ where: { id } });
 
       const delete_user = await User.destroy({ where: { id } });
+      if (!user) {
+        return next(ApiError.notFound("User account not found"));
+      }
 
 
       return res.json("User has been deleted");
