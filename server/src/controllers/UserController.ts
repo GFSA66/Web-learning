@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import ApiError from "../helpers/ApiErrors";
 import { User } from "../models/UserModel";
-import { CreationUserAttributes } from "../types/UserTypes";
+import { CreationUserAttributes, UserAttributes } from "../types/UserTypes";
+
 
 class UserController {
   static async get_user(
@@ -43,6 +44,30 @@ class UserController {
       return next(ApiError.internal("Server error!"));
     }
   }
-}
+
+  static async delete_user(
+    req: Request<undefined, undefined, UserAttributes>,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const { id } = req.body;
+      console.log(req.body);
+      const user = await User.findOne({ where: { id } });
+
+      const delete_user = await User.destroy({ where: { id } });
+
+
+      return res.json("User has been deleted");
+
+    } catch (error: any) {
+      console.log(error);
+      return next(ApiError.internal("Server error!"));
+    };
+  };
+};
 
 export default UserController;
+function next(arg0: ApiError) {
+  throw new Error("Function not implemented.");
+}
