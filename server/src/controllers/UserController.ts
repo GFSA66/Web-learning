@@ -46,29 +46,24 @@ class UserController {
   }
 
   static async delete_user(
-    req: Request<undefined, undefined, UserAttributes>,
+    req: Request<undefined, undefined, { id: number }>,
     res: Response,
     next: NextFunction
   ) {
     try {
       const { id } = req.body;
-      console.log(req.body);
-      const user = await User.findOne({ where: { id } });
-
-      const delete_user = await User.destroy({ where: { id } });
+      const user = await User.findByPk(id);
       if (!user) {
-        return next(ApiError.notFound("User account not found"));
+        return next(ApiError.notFound("User not found"));
       }
-
-
-      return res.json("User has been deleted");
-
-    } catch (error: any) {
+      await user.destroy();
+      return res.json({ message: "User deleted." });
+    } catch (error) {
       console.log(error);
       return next(ApiError.internal("Server error!"));
-    };
-  };
-};
+    }
+  }
+}
 
 export default UserController;
 function next(arg0: ApiError) {

@@ -12,6 +12,11 @@ import {
   AutoIncrement,
 } from "sequelize-typescript";
 import { CreationUserAttributes, UserAttributes } from "../types/UserTypes";
+import { Task } from "./TaskModel";
+import {
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+} from "sequelize";
 
 @Table({
   timestamps: false,
@@ -34,4 +39,10 @@ export class User extends Model<UserAttributes, CreationUserAttributes> {
   @AllowNull(false)
   @Column(DataType.STRING)
   password!: string;
+
+  @HasMany(() => Task, { onDelete: "CASCADE", sourceKey: "id" })
+  tasks!: Task[];
+
+  // declare createTask: HasManyCreateAssociationMixin<Task>;
+  // declare getTask: HasManyGetAssociationsMixin<Task>;
 }
