@@ -4,8 +4,31 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>React App</title>
+    <link rel="stylesheet" href="/client/src/styles/App.css">
+    <link 
+      href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' 
+      rel='stylesheet'
+      />
+
   </head>
   <body>
-    <div id="root"></div>
+    <header>
+      <div class="nav container">
+        <a href="" class="logo">Tas<span>ks</span></a>
+        <div class="nav-right">
+          <a href="/user"class="user-btn"><i class='bx bxs-user'></i></a>
+          <a href="/add" class="write-btn"><i class='bx bx-pencil' ></i>Write</a>
+        </div>
+      </div>
+    </header>
+    <div class="section home" id="home">
+      <div class="home-content">
+        <h2>Quick Tasks</h2>
+        <div class="search-box">
+          <i class='bx bx-search' ></i>
+          <input type="search" name="" id="" placeholder="Search">
+        </div>
+      </div>
+    </div>
   </body>
 </html>
